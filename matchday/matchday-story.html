@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Matchday Binéfar vs Huesca B (story)</title>
+<style>
+  :root {
+    --navy: #07162e;
+    --navy-2: #0d2a52;
+    --sky: #4fb3ea;
+    --sky-light: #9fd8f7;
+    --white: #ffffff;
+    --red: #e23a3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; background: var(--navy); }
+  body { font-family: "Inter Display", "Inter", sans-serif; color: var(--white); overflow: hidden; }
+
+  .poster { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: radial-gradient(120% 80% at 80% 20%, var(--navy-2) 0%, var(--navy) 60%); }
+
+  /* diagonal stripes */
+  .stripes { position: absolute; inset: 0; pointer-events: none; }
+  .stripe { position: absolute; width: 140px; height: 2800px; top: -500px; transform: rotate(18deg); }
+  .s1 { left: 300px; background: var(--sky); opacity: .9; }
+  .s2 { left: 465px; width: 26px; background: var(--white); opacity: .85; }
+  .s3 { left: 1010px; width: 60px; background: var(--sky); opacity: .35; }
+
+  /* hero */
+  .hero { position: absolute; top: 0; right: 0; width: 820px; height: 1480px;
+    clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+  .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 46% 30%;
+    transform: scale(1.05); transform-origin: 46% 35%; filter: saturate(1.08) contrast(1.05); }
+  .hero::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(7,22,46,0) 55%, rgba(7,22,46,.85) 85%, var(--navy) 100%),
+                linear-gradient(90deg, rgba(7,22,46,.55) 0%, rgba(7,22,46,0) 35%); }
+
+  /* side tiles */
+  .tile { position: absolute; left: 40px; width: 380px; height: 300px; overflow: hidden;
+    clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%); border: 0; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; }
+  .tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,22,46,0) 50%, rgba(7,22,46,.6)); }
+  .t1 { top: 640px; }
+  .t1 img { object-position: 42% 22%; transform: scale(1.5); transform-origin: 45% 25%; }
+  .t2 { top: 965px; left: -6px; }
+  .t2 img { object-position: 50% 60%; transform: scale(1.35); transform-origin: 46% 55%; }
+  .tile-edge { position: absolute; left: 40px; width: 380px; height: 300px;
+    clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%); background: var(--sky); }
+  .e1 { top: 652px; left: 54px; }
+  .e2 { top: 977px; left: 8px; }
+
+  /* headline */
+  .headline { position: absolute; top: 230px; left: 48px; z-index: 5; line-height: .82; }
+  .headline .kicker { font-weight: 700; font-size: 26px; letter-spacing: 8px; color: var(--sky-light);
+    margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
+  .headline .kicker::before { content: ""; width: 46px; height: 6px; background: var(--sky); transform: skewX(-20deg); }
+  .headline .big { font-weight: 900; font-style: italic; font-size: 176px; letter-spacing: -6px; text-transform: uppercase;
+    text-shadow: 0 8px 30px rgba(0,0,0,.45); }
+  .headline .big.outline { color: transparent; -webkit-text-stroke: 3px var(--white); text-shadow: none; }
+
+  /* bottom */
+  .bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 640px; z-index: 6;
+    background: linear-gradient(180deg, rgba(7,22,46,0) 0%, rgba(7,22,46,.92) 22%, var(--navy) 40%); }
+  .matchup { position: absolute; top: 60px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 30px; }
+  .team { text-align: center; }
+  .team .name { font-weight: 900; font-style: italic; font-size: 92px; letter-spacing: -2px; text-transform: uppercase; line-height: 1; }
+  .team .sub { margin-top: 8px; font-weight: 700; font-size: 22px; letter-spacing: 7px; color: var(--sky-light); text-transform: uppercase; }
+  .team.home .name { color: var(--white); }
+  .team.away .name { color: var(--white); }
+  .vs { font-weight: 900; font-style: italic; font-size: 46px; color: var(--navy); background: var(--sky);
+    width: 92px; height: 92px; display: grid; place-items: center; transform: skewX(-14deg); flex: none; margin-top: -32px; }
+  .vs span { transform: skewX(14deg); }
+
+  .info { position: absolute; left: 50px; right: 50px; bottom: 330px; display: flex; height: 112px;
+    transform: skewX(-12deg); }
+  .info > div { display: flex; flex-direction: column; justify-content: center; padding: 0 30px; }
+  .info .date { background: var(--white); color: var(--navy); flex: 1.15; }
+  .info .time { background: var(--sky); color: var(--navy); flex: .8; }
+  .info .place { background: var(--navy-2); color: var(--white); flex: 1.5; border: 3px solid var(--sky); }
+  .info .inner { transform: skewX(12deg); }
+  .info .lbl { font-weight: 700; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; opacity: .75; }
+  .info .val { font-weight: 900; font-style: italic; font-size: 44px; text-transform: uppercase; line-height: 1.05; letter-spacing: -.5px; white-space: nowrap; }
+
+  .footer { position: absolute; left: 0; right: 0; bottom: 250px; text-align: center; font-weight: 800; font-size: 26px;
+    letter-spacing: 12px; text-transform: uppercase; color: var(--sky-light); }
+  .footer b { color: var(--white); }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="stripes">
+    <div class="stripe s1"></div>
+    <div class="stripe s2"></div>
+    <div class="stripe s3"></div>
+  </div>
+
+  <div class="hero"><img src="fotos/jugador3.jpg" alt=""></div>
+
+  <div class="tile-edge e1"></div>
+  <div class="tile t1"><img src="fotos/jugador1.jpg" alt=""></div>
+  <div class="tile-edge e2"></div>
+  <div class="tile t2"><img src="fotos/jugador2.jpg" alt=""></div>
+
+  <div class="headline">
+    <div class="kicker">MAÑANA · PARTIDO</div>
+    <div class="big">Match</div>
+    <div class="big outline">Day</div>
+  </div>
+
+  <div class="bottom">
+    <div class="matchup">
+      <div class="team home"><div class="name">Binéfar</div><div class="sub">C.D. Binéfar</div></div>
+      <div class="vs"><span>VS</span></div>
+      <div class="team away"><div class="name">Huesca B</div><div class="sub">S.D. Huesca</div></div>
+    </div>
+
+    <div class="info">
+      <div class="date"><div class="inner"><div class="lbl">Domingo</div><div class="val">25 Octubre</div></div></div>
+      <div class="time"><div class="inner"><div class="lbl">Hora</div><div class="val">16:30 h</div></div></div>
+      <div class="place"><div class="inner"><div class="lbl">Campo</div><div class="val">Los Olmos</div></div></div>
+    </div>
+
+    <div class="footer"><b>¡Vamos</b> Binéfar!</div>
+  </div>
+</div>
+</body>
+</html>
